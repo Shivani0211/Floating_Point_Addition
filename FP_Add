@@ -1,0 +1,267 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() 
+{
+  int a[32];
+  int b[32];
+  int e1[8] = {0}, e2[8] = {0};
+  int m1[24] = {0},m2[24] = {0};
+  int t=1,s1;
+  int v=1,s2; 
+  int s;
+  int sn;
+  int exponent[8];
+  int m2_decimal=0,m1_decimal=0;
+  int out = 0;
+
+// taking input and storing it in an array a
+  printf("Enter 32 integers for a: ");
+
+  
+  for(int i = 0; i < 32; ++i)
+  {
+     scanf("%d", &a[i]);
+  }
+  
+  printf("checking 1\n");
+for(   sn=0;sn<8; ++sn)
+  {
+  printf("checking 2\n");
+  if(t<9)
+  e1[sn]=a[t];
+  t=t+1;
+  printf("checking 3\n");
+  printf("%d\n",e1[sn]);
+  }
+  // converting the e1 exponent from binary to decimal
+   int e1_decimal=0, e1_power=1;
+   for (int in=0; in<8; in++)
+   {
+
+       e1_decimal += e1[7-in]*e1_power;
+       e1_power *= 2;
+    
+   }
+       printf("%d final exponent dec\n", e1_decimal);
+
+  printf("get mantissa1\n");
+int q=9;
+for(int r=0; r<=22; ++r)
+{
+	if(q<32)
+	m1[r]=a[q];
+	q=q+1;
+printf("%d\n",m1[r]);
+}
+
+s1 = a[0];
+printf("sign of a is %d\n",s1);
+
+
+  // taking input and storing it in an array b
+printf("Enter 32 integers for b: ");
+
+for(int k = 0; k < 32; ++k) 
+  {
+    scanf("%d", &b[k]);
+  }
+   printf("checking 4\n");
+
+ /*printf("Displaying integers for a: ");
+
+  // printing elements of an array
+  for(int j = 0; j <32; ++j) {
+     printf("%d\n", a[j]);
+  }
+  
+
+
+  printf("Displaying integers for b: ");
+
+  // printing elements of an array
+  for(int l = 0; l <32; ++l) {
+     printf("%d\n", b[l]);
+  }*/
+  
+//extracting the exponents  b
+
+for(int w=0;w<8; ++w)
+{
+	 printf("checking 5\n");
+if(v<9)
+e2[w]=b[v];
+v=v+1;
+ printf("checking 6\n");
+printf("%d\n",e2[w]);
+}
+//converting the e2 exponent from binary to decimal
+int e2_decimal=0, e2_power=1;
+   for (int in2=0; in2<8; in2++)
+   {
+
+       e2_decimal += e2[7-in2]*e2_power;
+       e2_power *= 2;
+    
+   }
+       printf("%d final exponent dec\n", e2_decimal);
+
+//extracting mantissa
+printf("get mantissa2\n");
+int y=9;
+for(int z=0; z<=22; z++)
+{
+	if(y<32)
+	m2[z]=b[y];
+	y=y+1;
+printf("%d\n",m2[z]);
+}
+s2 = b[0];
+printf("sign of b is %d\n",s2);
+
+//comparing the 2 exponents
+int diff=0;
+			if(e1_decimal==e2_decimal) 
+			{
+				e1_decimal=e2_decimal;
+				printf("%d exponent dec\n", e1_decimal);
+
+				 printf("%d exponent dec\n", e2_decimal);
+				 printf("\n %d sign is \n", s1);
+					s=s1;
+					for (int expo=0;expo<8;expo++)
+					exponent[expo]=e1[expo];
+					printf("\n %d The exponent is", exponent);
+
+			}
+			 else if(e1_decimal>e2_decimal)
+			 {
+				diff=e1_decimal-e2_decimal;
+				 printf("\n%d The diff1 value is ",diff);
+				 printf("\n%d exponent dec", e1_decimal);
+				 printf("\n%d exponent dec", e2_decimal);
+				 printf("\n %d sign is ", s1);
+					s=s1;
+				for (int expo=0;expo<8;expo++)
+					exponent[expo]=e1[expo];
+					printf("\n %d The exponent is", exponent);
+// Shifting Mantissa
+					for (int ex_1=22; ex_1>=0; ex_1--)
+						{
+	 						m2[ex_1]=m2[ex_1-diff];
+	 						printf("\n%d The shifted mantissa m2 is ",m2[ex_1]);
+							if(ex_1<diff)
+							m2[ex_1]=0;
+		      printf("\n%d The shifted mantissa m2 is",m2);
+		      
+		       //converting mantissa2 to decimal           		
+    	}
+	}  
+		else if(e2_decimal > e1_decimal)
+		{
+			 diff = e2_decimal-e1_decimal;
+			  printf("%d The diff2 value is ",diff);
+
+					for (int ex_2=22; ex_2>=0; ex_2--)
+						{
+									m1[ex_2]=m1[ex_2-diff];
+									printf(" \nThe shifted mantissa m1 in the loop is %d %d ",ex_2,m1[ex_2]);
+									 if(ex_2<diff)
+									  m1[ex_2]=0;
+						}
+            		printf("\n%d The shifted mantissa m1 is",m1);
+            	printf("\n %d sign is \n", s2);
+            	s=s2;
+			 for (int expo=0;expo<8;expo++)
+					exponent[expo]=e2[expo];
+					printf("\n %d The exponent is", exponent);
+   }
+//converting mantissa1 to decimal
+ int  m1_power=1;
+   for (int m_t=0; m_t<23; m_t++)
+   {
+
+       m1_decimal += m1[22-m_t]*m1_power;
+       m1_power *= 2;
+   }
+       printf("\n%d final mantissa1 dec\n", m1_decimal);
+       
+//converting mantissa2 to decimal       
+       int m2_power=1;
+   for (int m_t1=0; m_t1<23; m_t1++)
+  	 {
+
+       m2_decimal += m2[22-m_t1]*m2_power;
+       m2_power *= 2;
+    
+  	 }
+       printf("\n%d final mantissa2 dec", m2_decimal);
+printf("\n%d out final mantissa1 dec\n", m1_decimal);
+  printf("\n%d out final mantissa2 dec\n", m2_decimal);
+  
+  //performing addition
+  if(s1==s2)
+  {
+out = m1_decimal+m2_decimal;
+    printf("\n %d final result is \n", out);
+}
+else
+{
+if(m1_decimal>m2_decimal)
+{
+ out= m1_decimal-m2_decimal;
+    printf("\n %d final result subtracting m1 from m2 \n", out);
+}
+    else 
+    out= m2_decimal-m1_decimal;
+     printf("\n %d final result subtracting m2 from m1 \n", out);
+    
+}
+ 
+ //converting result to binary
+  long  tempDecimal;  
+    char binary[32];  
+    int index = 0;  
+tempDecimal = out;  
+   while(tempDecimal!=0)  
+    {  
+    /* Finds decimal%2 and adds to the binary value */  
+        binary[index] = (tempDecimal % 2) + '0';  
+		tempDecimal /= 2;  
+        index++;  
+    }  
+   binary[index] = '\0';  
+  /* Reverse the binary value found */  
+    strrev(binary);  
+    printf("Binary value of decimal = %s", binary); 
+      
+//Normalization 
+ { 
+for(int norm=0; norm<=22; norm++)
+    {
+    if(binary[norm]==1){
+
+     printf("\n norm");
+     printf("\n Normalized value = %s",binary); 
+     	}
+     else {
+	
+     for (int norm2=0; norm2<=22; norm2++)
+						{
+	 						binary[norm2]=binary[norm2+1];
+	 						printf("\n The normalized value %s",binary[norm2]);
+							if(norm2>22)
+							binary[norm2]=0;
+}
+ }
+}
+}
+  printf("\n The sign bit is %d",s);
+for (int expo=0;expo<8;expo++)
+					exponent[expo]=e1[expo];
+					printf("\n %d The exponent is", exponent);
+ printf(" \n Normalized value = %s",binary); 
+
+    return 0;
+}
